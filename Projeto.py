@@ -58,7 +58,7 @@ historico = []
 # Texto do menu construído linha a linha com +=
 menu = ""
 menu += "\n========== INVENTÁRIO DO LABORATÓRIO ==========\n"
-menu += "1 - Opção 1\n"
+menu += "1 - Opção 1 - Listar Equipamentos\n"
 menu += "2 - Opção 2\n"
 menu += "3 - Opção 3\n"
 menu += "4 - Opção 4\n"
@@ -70,13 +70,24 @@ menu += "0 - Sair\n"
 menu += "===============================================\n"
 menu += "Escolha uma opção: "
 
+
 # Ciclo principal controlado por uma flag
 ativo = True
 while ativo:
     opcao = int(input(menu))
-
+# R1 - Listar equipamentos
     if opcao == 1:
-        print("A executar a opção 1...")
+        if len(inventario) == 0:
+            print("Nao ha equipamentos")
+        else:
+            print(f"{'CÓDIGO':<10}{'NOME':<30}{'SALA':<10}" f"{'QUANTIDADE':<15}{'ESTADO'}")
+            for codigo in sorted(inventario.keys()):
+                dados = inventario[codigo] # pega os dados do equipamento
+                nome = dados['nome'].title() # pega o nome e formata
+                print(f"{codigo:<10}{nome:<30}{dados['sala']:<10}" f"{dados['quantidade']:<15}{dados['estado']}")
+                #print()
+            print(f"Total de registos: {len(inventario)}")
+
     elif opcao == 2:
         print("A executar a opção 2...")
     elif opcao == 3:
@@ -92,6 +103,7 @@ while ativo:
     elif opcao == 8:
         print("A executar a opção 8...")
     elif opcao == 0:
+
         # Confirmação antes de sair
         resposta = input("Tem a certeza que deseja sair? (s/n): ").strip().lower()
         if resposta == 's':
